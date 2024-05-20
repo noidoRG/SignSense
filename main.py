@@ -1,78 +1,62 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QToolBar, QStackedWidget
-from PyQt6.QtGui import QAction, QIcon
-from PyQt6.QtCore import Qt, QTimer
-
-
-from widgets.training_widget import TrainingWidget
-from widgets.test_widget import TestWidget
-from widgets.sandbox_widget import SandboxWidget
-from widgets.translator_widget import TranslatorWidget
-from widgets.stats_settings_widget import StatsSettingsWidget
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QListWidget
+from modules.learning_module import LearningModule
+from modules.dictionary_module import DictionaryModule
+from modules.analyzer_module import AnalyzerModule
+from modules.statistics_module import StatisticsModule
+from modules.settings_module import SettingsModule
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        
         self.setWindowTitle("SignSense")
         
-        self.central_widget = QStackedWidget()
-        self.setCentralWidget(self.central_widget)
+        # Установка минимального размера окна
+        self.setMinimumSize(900, 540)
         
-        self.training_widget = TrainingWidget()
-        self.test_widget = TestWidget()
-        self.sandbox_widget = SandboxWidget()
-        self.translator_widget = TranslatorWidget()
-        self.stats_settings_widget = StatsSettingsWidget()
+        self.main_widget = QWidget()
+        self.setCentralWidget(self.main_widget)
         
-        self.central_widget.addWidget(self.training_widget)
-        self.central_widget.addWidget(self.test_widget)
-        self.central_widget.addWidget(self.sandbox_widget)
-        self.central_widget.addWidget(self.translator_widget)
-        self.central_widget.addWidget(self.stats_settings_widget)
+        self.layout = QVBoxLayout()
         
-
-        self.create_toolbars()
+        # Side menu
+        self.menu_list = QListWidget()
+        self.menu_list.addItems(["Обучение", "Словарь", "Анализатор", "Статистика", "Настройки"])
+        self.menu_list.currentItemChanged.connect(self.display_module)
         
-        self.show()
-
-
-    def create_toolbars(self):
-        tool_bar = QToolBar("Main Toolbar")
+        self.layout.addWidget(self.menu_list)
         
-        training_action = QAction("Обучение", self)
-        test_action = QAction("Проверка", self)
-        analysis_action = QAction("Анализатор", self)
-        stats_action = QAction("Статистика", self)
+        self.main_widget.setLayout(self.layout)
         
-        training_action.triggered.connect(self.show_training)
-        test_action.triggered.connect(self.show_test)
-        analysis_action.triggered.connect(self.show_sandbox)
-        stats_action.triggered.connect(self.show_stats_settings)
+        self.modules = {
+            "Обучение": LearningModule(),
+            "Словарь": DictionaryModule(),
+            "Анализатор": AnalyzerModule(),
+            "Статистика": StatisticsModule(),
+            "Настройки": SettingsModule()
+        }
         
-        tool_bar.addAction(training_action)
-        tool_bar.addAction(test_action)
-        tool_bar.addAction(analysis_action)
-        tool_bar.addAction(stats_action)
-        
-        self.addToolBar(tool_bar)
+        self.current_module = None
     
-    def show_training(self):
-        self.central_widget.setCurrentWidget(self.training_widget)
-    
-    def show_test(self):
-        self.central_widget.setCurrentWidget(self.test_widget)
-    
-    def show_sandbox(self):
-        self.central_widget.setCurrentWidget(self.sandbox_widget)
-    
-    def show_translator(self):
-        self.central_widget.setCurrentWidget(self.translator_widget)
-    
-    def show_stats_settings(self):
-        self.central_widget.setCurrentWidget(self.stats_settings_widget)
+    def display_module(self, current, previous):
+        if self.current_module is not None:
+            self.layout.removeWidget(self.current_module)
+            self.current_module.hide()
+        
+        self.current_module = self.modules[current.text()]
+        self.layout.addWidget(self.current_module)
+        self.current_module.show()
 
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
+
+    # Загрузка и применение стилей
+    with open("resources/styles/styles.qss", "r", encoding="utf-8") as style_file:
+        app.setStyleSheet(style_file.read())
+
     window = MainWindow()
     window.show()
-    app.exec()
+    sys.exit(app.exec())
+
+
