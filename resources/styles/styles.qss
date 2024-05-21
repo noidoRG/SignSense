@@ -1,7 +1,7 @@
 /* Основные стили */
 QWidget {
     background-color: #F5F7FA;
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat Alternates", Arial, sans-serif;
 }
 
 /* Заголовок приложения */
@@ -32,7 +32,15 @@ QListWidget::item:selected {
 
 /* Иконки меню */
 QListWidget::item::icon {
+    color: #007BFF;
     margin-right: 10px;
+}
+
+/* Логотип в навигационной панели */
+QLabel#logo_label {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-bottom: 1px solid #E0E0E0;
 }
 
 /* Панель контента */
