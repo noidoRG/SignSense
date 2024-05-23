@@ -1,3 +1,5 @@
+# controllers/analyzer_controller.py
+
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QImage, QPixmap
 import cv2
@@ -5,15 +7,9 @@ import mediapipe as mp
 import numpy as np
 from views.analyzer_view import AnalyzerView
 
-
 class AnalyzerController:
     def __init__(self):
-        self.view = QWidget()
-        self.view.setObjectName("analyzer_view")
-        self.layout = QVBoxLayout(self.view)
-        
-        self.video_label = QLabel()
-        self.layout.addWidget(self.video_label)
+        self.view = AnalyzerView()
         
         self.cap = cv2.VideoCapture(0)
         self.timer = QTimer()
@@ -45,12 +41,12 @@ class AnalyzerController:
             
             # Display the frame
             qt_img = self.convert_cv_qt(frame)
-            self.video_label.setPixmap(qt_img)
+            self.view.update_frame(qt_img)
     
     def convert_cv_qt(self, cv_img):
         rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
-        convert_to_qt_format = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-        p = convert_to_qt_format.scaled(640, 480, Qt.KeepAspectRatio)
+        convert_to_qt_format = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format.Format_RGB888)
+        p = convert_to_qt_format.scaled(640, 480, Qt.AspectRatioMode.KeepAspectRatio)
         return QPixmap.fromImage(p)

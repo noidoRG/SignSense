@@ -13,10 +13,10 @@ QMainWindow::title {
 }
 
 /* Список меню */
-QListWidget {
+QListWidget#menu_list {
     background-color: #F8F9FA;
-    border: none;
-    padding: 26px;
+    border: 2px solid #F8F9FA;
+    padding-left: 26px;
     font-size: 16px;
     color: #333333;
     outline: 0;
@@ -26,41 +26,43 @@ QListWidget {
     max-width: 240px;
 }
 
-QListWidget::item {
+QListWidget#menu_list::item {
     outline: 0;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 
-QListWidget::item:hover {
+QListWidget#menu_list::item:hover {
     background-color: #E8F6FC;
+    border: 2px solid #84D8FF;
     border-radius: 12px;
     padding: 0;
     margin: 0;
 }
 
-
-QListWidget::item:selected {
+QListWidget#menu_list::item:selected {
     background-color: #DDF4FF;
-    /* border-left: 4px solid #007BFF; */
     border: 2px solid #84D8FF;
+
     border-radius: 12px;
     color: #333333;
     outline: 0;
 }
 
-/* Иконки меню */
-QListWidget::item::icon {
-    /* color: #333333; */
-    /* padding-left: 40px;
-    padding-right: 64px; */
-}
-
 /* Логотип в навигационной панели */
 QLabel#logo_label {
     background-color: #F8F9FA;
-    padding: 20px;
-    border-bottom: 1px solid #E0E0E0;
+    /* border-bottom: 1px solid #E0E0E0; */
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+    /* text-align: center; */
+    outline: 0;
+    /* border-right: 2px solid #E5E5E5; */
+    /* margin-bottom: 0; */
+    padding: 20px 0px 20px 64px;
+    min-width: 240px;
+    max-width: 240px;
 }
 
 /* Панель контента */
