@@ -74,7 +74,6 @@ class AnalyzerModule(QWidget):
                 dissimilarity_score = sum(np.linalg.norm(np.array(thumb_up_points[i]) - np.array(self.thumbs_up_reference[i]))
                     for i in range(len(thumb_up_points))) / len(thumb_up_points)
 
-                
                 # Calculate resemblance score
                 resemblance_score = 1 - dissimilarity_score
 
