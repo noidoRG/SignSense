@@ -104,3 +104,54 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #004080;
 }
+
+/* Модальное окно жеста */
+QDialog {
+    background-color: #F8F9FA;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+QLabel#gesture_name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+QLabel#gesture_description {
+    font-size: 16px;
+    color: #333333;
+    padding-bottom: 20px;
+}
+
+QDialogButtonBox {
+    text-align: center;
+}
+
+QPushButton#ok_button {
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    min-width: 100px;
+}
+
+QPushButton#ok_button:hover {
+    background-color: #0056b3;
+}
+
+QPushButton#ok_button:pressed {
+    background-color: #004080;
+}
+
+/* Изображение жеста */
+QLabel#gesture_image {
+    border: 2px solid #E0E0E0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
