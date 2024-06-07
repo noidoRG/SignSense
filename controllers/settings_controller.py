@@ -1,17 +1,19 @@
 # controllers/settings_controller.py
 from models.settings_model import SettingsModel
-from views.settings_view import SettingsView
 
 class SettingsController:
     def __init__(self):
         self.model = SettingsModel()
-        self.view = SettingsView()
-        self.connect_signals()
+        self.display_landmarks = False
 
-    def connect_signals(self):
-        # Пример связи сигналов и слотов
-        # self.view.some_button.clicked.connect(self.handle_button_click)
-        pass
-    def handle_button_click(self):
-        data = self.model.get_data()
-        self.view.update(data)
+    def reset_learnt_gestures(self):
+        self.model.reset_learnt_gestures()
+
+    def reset_mastered_gestures(self):
+        self.model.reset_mastered_gestures()
+
+    def set_display_landmarks(self, display):
+        self.display_landmarks = display
+
+    def get_display_landmarks(self):
+        return self.display_landmarks

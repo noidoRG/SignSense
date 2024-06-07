@@ -1,5 +1,4 @@
 # views/main_window.py
-
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
@@ -8,6 +7,7 @@ from views.dictionary_view import DictionaryView
 from views.analyzer_view import AnalyzerView
 from views.statistics_view import StatisticsView
 from views.settings_view import SettingsView
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
