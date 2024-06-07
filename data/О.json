@@ -1,5 +1,5 @@
 {
-    "gesture": "\u041e",
+    "gesture": "О",
     "variations": [
         [
             {
@@ -325,5 +325,5 @@
     ],
     "learnt": false,
     "mastered": false,
-    "description": "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u043c\u0020\u041e\u041a\u002e"
+    "description": "Показываем ОК."
 }
