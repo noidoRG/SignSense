@@ -8,6 +8,7 @@ from views.analyzer_view import AnalyzerView
 from views.statistics_view import StatisticsView
 from views.settings_view import SettingsView
 
+# views/main_window.py
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -48,15 +49,22 @@ class MainWindow(QMainWindow):
         self.content_area.setObjectName("content")
         self.layout.addWidget(self.content_area)
 
+        self.settings_view = SettingsView()
+        self.statistics_view = StatisticsView()
+
         self.modules = {
             "Обучение": LearningView(),
             "Словарь": DictionaryView(),
             "Анализатор": AnalyzerView(),
-            "Статистика": StatisticsView(),
-            "Настройки": SettingsView()
+            "Статистика": self.statistics_view,
+            "Настройки": self.settings_view
         }
 
         self.current_module = None
+
+        # Подключение сигналов
+        self.settings_view.controller.learnt_reset.connect(self.statistics_view.update_statistics)
+        self.settings_view.controller.mastered_reset.connect(self.statistics_view.update_statistics)
 
     def add_menu_item(self, name, icon_path=None):
         item = QListWidgetItem(name)

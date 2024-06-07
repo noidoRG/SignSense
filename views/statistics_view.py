@@ -1,40 +1,45 @@
 # views/statistics_view.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QProgressBar
-from controllers.statistics_controller import StatisticsController
+import glob
+import json
 
 class StatisticsView(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.controller = StatisticsController()
-
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.learnt_label = QLabel("Изучено жестов: 0/0")
-        self.layout.addWidget(self.learnt_label)
+        self.learnt_label = QLabel()
         self.learnt_progress = QProgressBar()
-        self.layout.addWidget(self.learnt_progress)
-
-        self.mastered_label = QLabel("Освоено жестов: 0/0")
-        self.layout.addWidget(self.mastered_label)
+        self.mastered_label = QLabel()
         self.mastered_progress = QProgressBar()
+
+        self.layout.addWidget(self.learnt_label)
+        self.layout.addWidget(self.learnt_progress)
+        self.layout.addWidget(self.mastered_label)
         self.layout.addWidget(self.mastered_progress)
 
         self.update_statistics()
 
     def update_statistics(self):
-        stats = self.controller.get_statistics()
+        learnt_count = 0
+        mastered_count = 0
+        total_count = len(glob.glob("data/*.json"))
 
-        learnt = stats["learnt"]
-        mastered = stats["mastered"]
-        total = stats["total"]
+        for filename in glob.glob("data/*.json"):
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if data.get('learnt'):
+                    learnt_count += 1
+                if data.get('mastered'):
+                    mastered_count += 1
 
-        self.learnt_label.setText(f"Изучено жестов: {learnt}/{total}")
-        self.learnt_progress.setMaximum(total)
-        self.learnt_progress.setValue(learnt)
+        self.learnt_label.setText(f"Изучено жестов: {learnt_count}/{total_count}")
+        self.learnt_progress.setMaximum(total_count)
+        self.learnt_progress.setValue(learnt_count)
 
-        self.mastered_label.setText(f"Освоено жестов: {mastered}/{total}")
-        self.mastered_progress.setMaximum(total)
-        self.mastered_progress.setValue(mastered)
+        self.mastered_label.setText(f"Освоено жестов: {mastered_count}/{total_count}")
+        self.mastered_progress.setMaximum(total_count)
+        self.mastered_progress.setValue(mastered_count)
