@@ -3,20 +3,18 @@
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
-from PyQt6.QtCore import Qt
-from views.analyzer_view import AnalyzerView
+from views.learning_view import LearningView
 from views.dictionary_view import DictionaryView
+from views.analyzer_view import AnalyzerView
+from views.statistics_view import StatisticsView
+from views.settings_view import SettingsView
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("SignSense")
-
-        # Установка иконки приложения
         self.setWindowIcon(QIcon("./resources/icons/logo.svg"))
-
-        # Установка минимального размера окна
         self.setMinimumSize(900, 540)
 
         self.main_widget = QWidget()
@@ -24,15 +22,12 @@ class MainWindow(QMainWindow):
 
         self.layout = QHBoxLayout(self.main_widget)
 
-        # Side menu layout
         self.menu_layout = QVBoxLayout()
 
-        # Adding the text logo to the side menu
         self.logo_label = QLabel("SignSense")
         self.logo_label.setObjectName("logo_label")
         self.menu_layout.addWidget(self.logo_label)
 
-        # Side menu
         self.menu_list = QListWidget()
         self.menu_list.setObjectName("menu_list")
         self.menu_list.setIconSize(QSize(32, 32))
@@ -47,8 +42,6 @@ class MainWindow(QMainWindow):
         self.menu_list.currentItemChanged.connect(self.display_module)
 
         self.menu_layout.addWidget(self.menu_list)
-
-        # Adding the side menu layout to the main layout
         self.layout.addLayout(self.menu_layout)
 
         self.content_area = QWidget()
@@ -56,12 +49,11 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.content_area)
 
         self.modules = {
-            "Обучение": QWidget(),  # Заглушка для модуля обучения
+            "Обучение": LearningView(),
             "Словарь": DictionaryView(),
             "Анализатор": AnalyzerView(),
-            "Статистика": QWidget(),  # Заглушка для модуля статистики
-            "Настройки": QWidget(),  # Заглушка для модуля настроек
-            "Выход": None  # Специальный пункт для выхода из приложения
+            "Статистика": StatisticsView(),
+            "Настройки": SettingsView()
         }
 
         self.current_module = None
@@ -73,13 +65,13 @@ class MainWindow(QMainWindow):
         self.menu_list.addItem(item)
 
     def display_module(self, current, previous):
-        if current.text() == "Выход":
-            QApplication.instance().quit()
-            return
-
         if self.current_module is not None:
             self.layout.removeWidget(self.current_module)
             self.current_module.hide()
+
+        if current.text() == "Выход":
+            self.close()
+            return
 
         self.current_module = self.modules[current.text()]
         self.layout.addWidget(self.current_module)
