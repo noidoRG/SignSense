@@ -323,7 +323,7 @@
             }
         ]
     ],
-    "learnt": true,
+    "learnt": false,
     "mastered": false,
     "description": "Кулак сжат и направлен вверх, как будто готов для Атаки."
 }

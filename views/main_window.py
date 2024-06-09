@@ -1,7 +1,8 @@
 # views/main_window.py
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QSize
+from controllers.learning_controller import LearningController
 from views.learning_view import LearningView
 from views.dictionary_view import DictionaryView
 from views.analyzer_view import AnalyzerView
@@ -51,9 +52,10 @@ class MainWindow(QMainWindow):
 
         self.settings_view = SettingsView()
         self.statistics_view = StatisticsView()
+        self.learning_view = LearningView()
 
         self.modules = {
-            "Обучение": LearningView(),
+            "Обучение": self.learning_view,
             "Словарь": DictionaryView(),
             "Анализатор": AnalyzerView(),
             "Статистика": self.statistics_view,
@@ -62,7 +64,6 @@ class MainWindow(QMainWindow):
 
         self.current_module = None
 
-        # Подключение сигналов
         self.settings_view.controller.learnt_reset.connect(self.statistics_view.update_statistics)
         self.settings_view.controller.mastered_reset.connect(self.statistics_view.update_statistics)
 
