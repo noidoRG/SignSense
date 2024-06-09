@@ -2,13 +2,14 @@
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QMessageBox
 from PyQt6.QtCore import pyqtSignal
+from views.instruction_dialog import InstructionDialog
+from views.recognizer_dialog import RecognizerDialog
 import glob
 import json
 
-from views.instruction_dialog import InstructionDialog
-from views.recognizer_dialog import RecognizerDialog
-
 class LearningView(QWidget):
+    gesture_learnt = pyqtSignal()
+
     def __init__(self):
         super().__init__()
 
@@ -35,10 +36,16 @@ class LearningView(QWidget):
             else:
                 self.show_message("Вы изучили все жесты! Пора их повторить!")
             return
-        
+
         for gesture in gestures:
             self.show_instruction(gesture)
-            self.show_recognizer(gesture)
+            recognizer_dialog = RecognizerDialog(gesture)
+            recognizer_dialog.gesture_learnt.connect(self.update_statistics)
+            recognizer_dialog.exec()
+            if recognizer_dialog.continue_pressed:
+                continue
+            else:
+                break
 
     def review_gestures(self):
         pass  # Implement review gestures logic here
@@ -65,9 +72,8 @@ class LearningView(QWidget):
         dialog = InstructionDialog(gesture)
         dialog.exec()
 
-    def show_recognizer(self, gesture):
-        dialog = RecognizerDialog(gesture)
-        dialog.exec()
+    def update_statistics(self):
+        self.gesture_learnt.emit()
 
     def show_message(self, message):
         dialog = QMessageBox()

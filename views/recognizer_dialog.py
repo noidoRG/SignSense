@@ -1,18 +1,21 @@
 # views/recognizer_dialog.py
 
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 import cv2
 import mediapipe as mp
 import numpy as np
 import json
 
 class RecognizerDialog(QDialog):
+    gesture_learnt = pyqtSignal()
+
     def __init__(self, gesture):
         super().__init__()
 
         self.gesture = gesture
+        self.continue_pressed = False
         self.setWindowTitle("Распознаватель жестов")
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -32,7 +35,7 @@ class RecognizerDialog(QDialog):
         self.back_button.clicked.connect(self.reject)
         self.continue_button = QPushButton("Продолжить")
         self.continue_button.setEnabled(False)
-        self.continue_button.clicked.connect(self.accept)
+        self.continue_button.clicked.connect(self.continue_action)
         self.button_layout.addWidget(self.back_button)
         self.button_layout.addWidget(self.continue_button)
         self.layout.addLayout(self.button_layout)
@@ -62,6 +65,7 @@ class RecognizerDialog(QDialog):
                 if confidence >= 70:
                     self.continue_button.setEnabled(True)
                     self.update_gesture_status()
+                    self.gesture_learnt.emit()
         image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format.Format_BGR888)
         self.video_label.setPixmap(QPixmap.fromImage(image))
 
@@ -114,6 +118,10 @@ class RecognizerDialog(QDialog):
                 confidence = 100 - min_distance * 100
 
         return gesture_name, confidence
+
+    def continue_action(self):
+        self.continue_pressed = True
+        self.accept()
 
     def update_gesture_status(self):
         with open(f"data/{self.gesture['gesture']}.json", 'r+', encoding='utf-8') as f:

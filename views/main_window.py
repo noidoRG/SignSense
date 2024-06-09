@@ -1,15 +1,14 @@
 # views/main_window.py
+
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
-from controllers.learning_controller import LearningController
 from views.learning_view import LearningView
 from views.dictionary_view import DictionaryView
 from views.analyzer_view import AnalyzerView
 from views.statistics_view import StatisticsView
 from views.settings_view import SettingsView
-
-# views/main_window.py
+from controllers.learning_controller import LearningController
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -66,6 +65,7 @@ class MainWindow(QMainWindow):
 
         self.settings_view.controller.learnt_reset.connect(self.statistics_view.update_statistics)
         self.settings_view.controller.mastered_reset.connect(self.statistics_view.update_statistics)
+        self.learning_view.gesture_learnt.connect(self.statistics_view.update_statistics)
 
     def add_menu_item(self, name, icon_path=None):
         item = QListWidgetItem(name)
