@@ -1,3 +1,10 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 /* Основные стили */
 QWidget {
     background-color: #F8F9FA;
@@ -16,20 +23,18 @@ QMainWindow::title {
 QListWidget#menu_list {
     background-color: #F8F9FA;
     border: 2px solid #F8F9FA;
-    padding-left: 26px;
+    padding: 10px 0;
     font-size: 16px;
     color: #333333;
     outline: 0;
     border-right: 2px solid #E5E5E5;
-    padding-right: 24px;
     min-width: 240px;
     max-width: 240px;
 }
 
 QListWidget#menu_list::item {
     outline: 0;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 10px 20px;
     background-color: #F8F9FA;
     border: 2px solid #F8F9FA;
 }
@@ -38,30 +43,25 @@ QListWidget#menu_list::item:hover {
     background-color: #EAF5FB;
     border: 2px solid #EAF5FB;
     border-radius: 12px;
-    padding: 0;
-    margin: 0;
+    padding: 10px 20px;
 }
 
 QListWidget#menu_list::item:selected {
     background-color: #DDF4FF;
     border: 2px solid #84D8FF;
-
     border-radius: 12px;
     color: #333333;
     outline: 0;
+    padding: 10px 20px;
 }
 
 /* Логотип в навигационной панели */
 QLabel#logo_label {
     background-color: #F8F9FA;
-    /* border-bottom: 1px solid #E0E0E0; */
     font-size: 24px;
     font-weight: bold;
     color: #007BFF;
-    /* text-align: center; */
     outline: 0;
-    /* border-right: 2px solid #E5E5E5; */
-    /* margin-bottom: 0; */
     padding: 20px 0px 20px 64px;
     min-width: 240px;
     max-width: 240px;
@@ -105,53 +105,39 @@ QPushButton:pressed {
     background-color: #004080;
 }
 
-/* Модальное окно жеста */
-QDialog {
-    background-color: #F8F9FA;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-QLabel#gesture_name {
-    font-size: 20px;
-    font-weight: bold;
+/* Кнопки в LearningView */
+QPushButton#learn_gestures_button,
+QPushButton#review_gestures_button {
+    background-color: #EAF5FB;
+    border: 2px solid #EAF5FB;
+    border-radius: 12px;
+    /* margin-top: 128px; */
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-bottom: 0px;
     color: #333333;
-    text-align: center;
-    padding-bottom: 10px;
 }
 
-QLabel#gesture_description {
-    font-size: 16px;
-    color: #333333;
-    padding-bottom: 20px;
+QPushButton#learn_gestures_button:hover,
+QPushButton#review_gestures_button:hover {
+    background-color: #DDF4FF;
+    border: 2px solid #84D8FF;
 }
 
-QDialogButtonBox {
-    text-align: center;
-}
-
-QPushButton#ok_button {
-    background-color: #007BFF;
-    border: none;
+QPushButton#learn_gestures_button:pressed,
+QPushButton#review_gestures_button:pressed {
+    background-color: #84D8FF;
+    border: 2px solid #84D8FF;
     color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    min-width: 100px;
 }
 
-QPushButton#ok_button:hover {
-    background-color: #0056b3;
-}
-
-QPushButton#ok_button:pressed {
-    background-color: #004080;
-}
-
-/* Изображение жеста */
-QLabel#gesture_image {
-    border: 2px solid #E0E0E0;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+/* Подписи под кнопками в LearningView */
+QLabel#instruction_label,
+QLabel#review_label {
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+    padding: 0px;
+    max-width: 240px;
+    min-width: 240px;
 }

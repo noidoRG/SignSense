@@ -1,7 +1,7 @@
 # views/recognizer_dialog.py
 
 from PyQt6.QtCore import pyqtSignal, Qt
-from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtGui import QImage, QPixmap, QIcon
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 import cv2
 import mediapipe as mp
@@ -19,6 +19,8 @@ class RecognizerDialog(QDialog):
         self.mode = mode
         self.continue_pressed = False
         self.setWindowTitle("Распознаватель жестов")
+        self.setWindowIcon(QIcon("./resources/icons/logo.svg"))
+
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 

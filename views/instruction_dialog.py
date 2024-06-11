@@ -2,7 +2,7 @@
 
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QIcon
 import os
 
 class InstructionDialog(QDialog):
@@ -11,6 +11,8 @@ class InstructionDialog(QDialog):
 
         self.gesture = gesture
         self.setWindowTitle("Инструкция к жесту")
+        self.setWindowIcon(QIcon("./resources/icons/logo.svg"))
+
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 

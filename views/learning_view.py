@@ -1,7 +1,8 @@
 # views/learning_view.py
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QMessageBox
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QMessageBox, QHBoxLayout, QSpacerItem, QSizePolicy
+from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import pyqtSignal, QSize, Qt
 from views.instruction_dialog import InstructionDialog
 from views.recognizer_dialog import RecognizerDialog
 import glob
@@ -17,16 +18,55 @@ class LearningView(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.learn_gestures_button = QPushButton("Изучить жесты")
+        self.button_text_layout = QVBoxLayout()
+        self.button_layout = QHBoxLayout()
+
+        self.learn_gestures_button = QPushButton(" Изучить жесты")
+        self.learn_gestures_button.setObjectName("learn_gestures_button")
         self.learn_gestures_button.setToolTip("Изучить новые жесты")
+        self.learn_gestures_button.setIcon(QIcon("./resources/icons/Learn.svg"))
+        self.learn_gestures_button.setIconSize(QSize(32, 32))
         self.learn_gestures_button.clicked.connect(self.learn_gestures)
 
-        self.review_gestures_button = QPushButton("Повторить жесты")
+        self.review_gestures_button = QPushButton(" Повторить жесты")
+        self.review_gestures_button.setObjectName("review_gestures_button")
         self.review_gestures_button.setToolTip("Повторить изученные жесты")
+        self.review_gestures_button.setIcon(QIcon("./resources/icons/Review.svg"))
+        self.review_gestures_button.setIconSize(QSize(32, 32))
         self.review_gestures_button.clicked.connect(self.review_gestures)
 
-        self.layout.addWidget(self.learn_gestures_button)
-        self.layout.addWidget(self.review_gestures_button)
+        self.button_layout.addStretch(1)
+        self.button_layout.addWidget(self.learn_gestures_button)
+        self.button_layout.addSpacing(20)
+        self.button_layout.addWidget(self.review_gestures_button)
+        self.button_layout.addStretch(1)
+
+        self.layout.addSpacerItem(QSpacerItem(20, 60, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
+        self.layout.addLayout(self.button_layout)
+        self.layout.addSpacerItem(QSpacerItem(20, 20, QSizePolicy.Policy.Minimum))
+
+        self.text_layout = QHBoxLayout()
+        self.instruction_label = QLabel("Просмотр инструкции к жесту и оценивание демонстрируемого жеста")
+        self.instruction_label.setObjectName("instruction_label")
+        self.instruction_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.instruction_label.setWordWrap(True)
+
+        self.review_label = QLabel("Повторная оценка жестов, которые были изучены")
+        self.review_label.setObjectName("review_label")
+        self.review_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.review_label.setWordWrap(True)
+
+        self.text_layout.addStretch(1)
+        self.text_layout.addWidget(self.instruction_label)
+        self.text_layout.addSpacing(40)
+        self.text_layout.addWidget(self.review_label)
+        self.text_layout.addStretch(1)
+
+        self.button_text_layout.addLayout(self.button_layout)
+        self.button_text_layout.addLayout(self.text_layout)
+        self.layout.addLayout(self.button_text_layout)
+
+        self.layout.addSpacerItem(QSpacerItem(20, 60, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
 
     def learn_gestures(self):
         gestures = self.get_unlearnt_gestures()
