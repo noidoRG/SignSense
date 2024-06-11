@@ -10,11 +10,13 @@ import json
 
 class RecognizerDialog(QDialog):
     gesture_learnt = pyqtSignal()
+    gesture_mastered = pyqtSignal()
 
-    def __init__(self, gesture):
+    def __init__(self, gesture, mode='learn'):
         super().__init__()
 
         self.gesture = gesture
+        self.mode = mode
         self.continue_pressed = False
         self.setWindowTitle("Распознаватель жестов")
         self.layout = QVBoxLayout()
@@ -64,8 +66,12 @@ class RecognizerDialog(QDialog):
                 self.similarity_label.setText(f"Процент сходства: {confidence:.2f}%")
                 if confidence >= 70:
                     self.continue_button.setEnabled(True)
-                    self.update_gesture_status()
-                    self.gesture_learnt.emit()
+                    if self.mode == 'learn':
+                        self.update_gesture_status('learnt')
+                        self.gesture_learnt.emit()
+                    elif self.mode == 'master':
+                        self.update_gesture_status('mastered')
+                        self.gesture_mastered.emit()
         image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format.Format_BGR888)
         self.video_label.setPixmap(QPixmap.fromImage(image))
 
@@ -75,9 +81,9 @@ class RecognizerDialog(QDialog):
             normalized_landmarks = []
             for lm in landmarks:
                 normalized_landmarks.append({
-                    'x': lm['x'] - wrist['x'],
-                    'y': lm['y'] - wrist['y'],
-                    'z': lm['z'] - wrist['z']
+                    'x': lm.x - wrist.x,
+                    'y': lm.y - wrist.y,
+                    'z': lm.z - wrist.z
                 })
             return normalized_landmarks
 
@@ -96,7 +102,6 @@ class RecognizerDialog(QDialog):
             array2 = np.array([[lm['x'], lm['y'], lm['z']] for lm in landmarks2])
             return np.linalg.norm(array1 - array2)
 
-        landmarks = [{'x': lm.x, 'y': lm.y, 'z': lm.z} for lm in landmarks]
         normalized_landmarks = normalize_landmarks(landmarks)
         mirrored_landmarks = mirror_landmarks(normalized_landmarks)
 
@@ -105,7 +110,7 @@ class RecognizerDialog(QDialog):
         confidence = 0
 
         for variation in self.gesture['variations']:
-            normalized_variation = normalize_landmarks(variation)
+            normalized_variation = self.normalize_landmarks_from_dict(variation)
             distance = calculate_distance(normalized_landmarks, normalized_variation)
             mirrored_distance = calculate_distance(mirror_landmarks(normalized_variation), normalized_landmarks)
             if distance < min_distance:
@@ -119,14 +124,25 @@ class RecognizerDialog(QDialog):
 
         return gesture_name, confidence
 
+    def normalize_landmarks_from_dict(self, landmarks):
+        wrist = landmarks[0]
+        normalized_landmarks = []
+        for lm in landmarks:
+            normalized_landmarks.append({
+                'x': lm['x'] - wrist['x'],
+                'y': lm['y'] - wrist['y'],
+                'z': lm['z'] - wrist['z']
+            })
+        return normalized_landmarks
+
     def continue_action(self):
         self.continue_pressed = True
         self.accept()
 
-    def update_gesture_status(self):
+    def update_gesture_status(self, status):
         with open(f"data/{self.gesture['gesture']}.json", 'r+', encoding='utf-8') as f:
             data = json.load(f)
-            data['learnt'] = True
+            data[status] = True
             f.seek(0)
             json.dump(data, f, ensure_ascii=False, indent=4)
             f.truncate()

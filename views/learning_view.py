@@ -9,6 +9,7 @@ import json
 
 class LearningView(QWidget):
     gesture_learnt = pyqtSignal()
+    gesture_mastered = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -30,7 +31,7 @@ class LearningView(QWidget):
     def learn_gestures(self):
         gestures = self.get_unlearnt_gestures()
         if not gestures:
-            mastered_gestures = self.get_unmastered_gestures()
+            mastered_gestures = self.get_learnt_but_unmastered_gestures()
             if not mastered_gestures:
                 self.show_message("Поздравляем! Вы выучили и освоили все жесты!")
             else:
@@ -49,7 +50,28 @@ class LearningView(QWidget):
                 break
 
     def review_gestures(self):
-        pass  # Implement review gestures logic here
+        learnt_gestures = self.get_learnt_gestures()
+        if not learnt_gestures:
+            self.show_message("Нет изученных жестов.")
+            return
+
+        gestures = self.get_learnt_but_unmastered_gestures()
+        if not gestures:
+            if self.get_mastered_gestures_count() == self.get_total_gestures_count():
+                self.show_message("Поздравляем! Вы освоили все жесты!")
+            else:
+                self.show_message("Вы освоили все изученные жесты! Так держать!")
+            return
+
+        for gesture in gestures:
+            recognizer_dialog = RecognizerDialog(gesture, mode='master')
+            recognizer_dialog.gesture_mastered.connect(self.update_statistics)
+            recognizer_dialog.exec()
+            recognizer_dialog.stop_video()  # Ensure video stops before next iteration
+            if recognizer_dialog.continue_pressed:
+                continue
+            else:
+                break
 
     def get_unlearnt_gestures(self):
         gestures = []
@@ -60,14 +82,35 @@ class LearningView(QWidget):
                     gestures.append(data)
         return gestures
 
-    def get_unmastered_gestures(self):
+    def get_learnt_gestures(self):
         gestures = []
         for filename in glob.glob("data/*.json"):
             with open(filename, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                if not data.get('mastered', False):
+                if data.get('learnt', False):
                     gestures.append(data)
         return gestures
+
+    def get_learnt_but_unmastered_gestures(self):
+        gestures = []
+        for filename in glob.glob("data/*.json"):
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if data.get('learnt', False) and not data.get('mastered', False):
+                    gestures.append(data)
+        return gestures
+
+    def get_mastered_gestures_count(self):
+        count = 0
+        for filename in glob.glob("data/*.json"):
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if data.get('mastered', False):
+                    count += 1
+        return count
+
+    def get_total_gestures_count(self):
+        return len(glob.glob("data/*.json"))
 
     def show_instruction(self, gesture):
         dialog = InstructionDialog(gesture)
@@ -75,6 +118,7 @@ class LearningView(QWidget):
 
     def update_statistics(self):
         self.gesture_learnt.emit()
+        self.gesture_mastered.emit()
 
     def show_message(self, message):
         dialog = QMessageBox()
