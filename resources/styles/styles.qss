@@ -111,10 +111,8 @@ QPushButton#review_gestures_button {
     background-color: #EAF5FB;
     border: 2px solid #EAF5FB;
     border-radius: 12px;
-    /* margin-top: 128px; */
     padding: 10px 20px;
     font-size: 18px;
-    margin-bottom: 0px;
     color: #333333;
 }
 
@@ -136,8 +134,24 @@ QLabel#instruction_label,
 QLabel#review_label {
     font-size: 14px;
     color: #333333;
+    margin-top: 5px;
     text-align: center;
-    padding: 0px;
-    max-width: 240px;
-    min-width: 240px;
+    padding: 0 20px;
+}
+
+/* Стиль для распознавателя */
+QLabel#gesture_label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333333;
+}
+
+QLabel#score_label {
+    font-size: 14px;
+    color: #333333;
+}
+
+QPushButton#continue_button:disabled {
+    background-color: #cccccc;
+    color: #666666;
 }

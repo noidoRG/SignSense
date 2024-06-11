@@ -163,5 +163,6 @@ class LearningView(QWidget):
     def show_message(self, message):
         dialog = QMessageBox()
         dialog.setWindowTitle("Сообщение")
+        dialog.setWindowIcon(QIcon("./resources/icons/logo.svg"))
         dialog.setText(message)
         dialog.exec()

@@ -19,7 +19,7 @@ class AnalyzerView(QWidget):
         self.video_label = QLabel()
         self.layout.addWidget(self.video_label)
 
-        self.result_label = QLabel("Распознавание жестов")
+        self.result_label = QLabel("Нет жеста")
         self.layout.addWidget(self.result_label)
 
         self.cap = None
