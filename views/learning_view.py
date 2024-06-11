@@ -42,6 +42,7 @@ class LearningView(QWidget):
             recognizer_dialog = RecognizerDialog(gesture)
             recognizer_dialog.gesture_learnt.connect(self.update_statistics)
             recognizer_dialog.exec()
+            recognizer_dialog.stop_video()  # Ensure video stops before next iteration
             if recognizer_dialog.continue_pressed:
                 continue
             else:

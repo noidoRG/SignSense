@@ -52,11 +52,12 @@ class MainWindow(QMainWindow):
         self.settings_view = SettingsView()
         self.statistics_view = StatisticsView()
         self.learning_view = LearningView()
+        self.analyzer_view = AnalyzerView()
 
         self.modules = {
             "Обучение": self.learning_view,
             "Словарь": DictionaryView(),
-            "Анализатор": AnalyzerView(),
+            "Анализатор": self.analyzer_view,
             "Статистика": self.statistics_view,
             "Настройки": self.settings_view
         }
@@ -75,6 +76,8 @@ class MainWindow(QMainWindow):
 
     def display_module(self, current, previous):
         if self.current_module is not None:
+            if isinstance(self.current_module, AnalyzerView):
+                self.current_module.stop_video()
             self.layout.removeWidget(self.current_module)
             self.current_module.hide()
 
@@ -85,3 +88,5 @@ class MainWindow(QMainWindow):
         self.current_module = self.modules[current.text()]
         self.layout.addWidget(self.current_module)
         self.current_module.show()
+        if isinstance(self.current_module, AnalyzerView):
+            self.current_module.start_video()

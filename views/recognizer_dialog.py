@@ -107,7 +107,7 @@ class RecognizerDialog(QDialog):
         for variation in self.gesture['variations']:
             normalized_variation = normalize_landmarks(variation)
             distance = calculate_distance(normalized_landmarks, normalized_variation)
-            mirrored_distance = calculate_distance(mirrored_landmarks, normalized_variation)
+            mirrored_distance = calculate_distance(mirror_landmarks(normalized_variation), normalized_landmarks)
             if distance < min_distance:
                 min_distance = distance
                 gesture_name = self.gesture['gesture']
@@ -132,6 +132,9 @@ class RecognizerDialog(QDialog):
             f.truncate()
 
     def closeEvent(self, event):
+        self.stop_video()
+        super().closeEvent(event)
+
+    def stop_video(self):
         self.killTimer(self.timer)
         self.cap.release()
-        super().closeEvent(event)
