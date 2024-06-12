@@ -17,9 +17,12 @@ class Analyzer(QWidget):
         self.setLayout(self.layout)
 
         self.video_label = QLabel()
+        self.video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.video_label.setObjectName("video_label")
         self.layout.addWidget(self.video_label)
 
-        self.result_label = QLabel("Нет жеста")
+        self.result_label = QLabel("Ваш жест: ")
+        self.result_label.setObjectName("result_label")
         self.layout.addWidget(self.result_label)
 
         self.cap = None
@@ -68,9 +71,9 @@ class Analyzer(QWidget):
                 mp.solutions.drawing_utils.draw_landmarks(
                     frame, hand_landmarks, mp.solutions.hands.HAND_CONNECTIONS)
                 gesture, confidence = self.recognize_gesture(hand_landmarks.landmark)
-                self.result_label.setText(f"{gesture} ({confidence:.2f}%)")
+                self.result_label.setText(f"Ваш жест: {gesture} ({confidence:.2f}%)")
         else:
-            self.result_label.setText("Нет жеста")
+            self.result_label.setText("Ваш жест: ")
 
         image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format.Format_BGR888)
         self.video_label.setPixmap(QPixmap.fromImage(image))
