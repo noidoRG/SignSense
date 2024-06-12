@@ -2,6 +2,7 @@
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox
 from PyQt6.QtCore import QObject, pyqtSignal
+from PyQt6.QtGui import QIcon
 import json
 import glob
 
@@ -23,16 +24,41 @@ class Settings(QWidget):
         self.reset_mastered_button.clicked.connect(self.confirm_reset_mastered)
         self.layout.addWidget(self.reset_mastered_button)
 
+
     def confirm_reset_learnt(self):
-        reply = QMessageBox.question(self, "Подтверждение сброса", "Вы уверены, что хотите сбросить данные об изученных жестах?",
-                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-        if reply == QMessageBox.StandardButton.Yes:
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Подтверждение сброса")
+        msg_box.setWindowIcon(QIcon("./resources/icons/logo.svg"))
+        msg_box.setText("Вы уверены, что хотите сбросить данные об изученных жестах?")
+        
+        yes_button = QPushButton("Да")
+        yes_button.setObjectName("yes_button")
+        no_button = QPushButton("Нет")
+        no_button.setObjectName("no_button")
+        
+        msg_box.addButton(yes_button, QMessageBox.ButtonRole.YesRole)
+        msg_box.addButton(no_button, QMessageBox.ButtonRole.NoRole)
+        
+        reply = msg_box.exec()
+
+        if msg_box.clickedButton() == yes_button:
             self.reset_learnt_gestures()
 
     def confirm_reset_mastered(self):
-        reply = QMessageBox.question(self, "Подтверждение сброса", "Вы уверены, что хотите сбросить данные об освоенных жестах?",
-                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-        if reply == QMessageBox.StandardButton.Yes:
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Подтверждение сброса")
+        msg_box.setWindowIcon(QIcon("./resources/icons/logo.svg"))
+        msg_box.setText("Вы уверены, что хотите сбросить данные об освоенных жестах?")
+        
+        yes_button = QPushButton("Да")
+        no_button = QPushButton("Нет")
+        
+        msg_box.addButton(yes_button, QMessageBox.ButtonRole.YesRole)
+        msg_box.addButton(no_button, QMessageBox.ButtonRole.NoRole)
+        
+        reply = msg_box.exec()
+
+        if msg_box.clickedButton() == yes_button:
             self.reset_mastered_gestures()
 
 # Работа с JSON
