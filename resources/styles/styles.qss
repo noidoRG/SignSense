@@ -1,22 +1,18 @@
 /* Reset styles */
-* {
+/* * {
     margin: 0;
     padding: 0;
     border: 0;
-}
+    } */
 
 /* Основные стили */
 QWidget {
     background-color: #F8F9FA;
     font-family: "Montserrat Alternates", Arial, sans-serif;
     outline: 0;
-}
-
-/* Заголовок приложения */
-QMainWindow::title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333333;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 /* Список меню */
@@ -30,6 +26,8 @@ QListWidget#menu_list {
     border-right: 2px solid #E5E5E5;
     min-width: 240px;
     max-width: 240px;
+    font-family: "Rubik", Arial, sans-serif;
+    font-weight: 500;
 }
 
 QListWidget#menu_list::item {
@@ -67,13 +65,6 @@ QLabel#logo_label {
     max-width: 240px;
 }
 
-/* Панель контента */
-QWidget#content {
-    background-color: #F8F9FA;
-    border-radius: 10px;
-    padding: 20px;
-}
-
 /* Тексты и заголовки */
 QLabel {
     font-size: 16px;
@@ -95,6 +86,7 @@ QPushButton {
     border-radius: 5px;
     font-size: 16px;
     min-width: 100px;
+    font-family: "Rubik", Arial, sans-serif;
 }
 
 QPushButton:hover {
@@ -114,6 +106,10 @@ QPushButton#review_gestures_button {
     padding: 10px 20px;
     font-size: 18px;
     color: #333333;
+    min-width: 220px;
+    max-width: 220px;
+    font-family: "Rubik", Arial, sans-serif;
+    font-weight: 500;
 }
 
 QPushButton#learn_gestures_button:hover,
@@ -122,21 +118,14 @@ QPushButton#review_gestures_button:hover {
     border: 2px solid #84D8FF;
 }
 
-QPushButton#learn_gestures_button:pressed,
-QPushButton#review_gestures_button:pressed {
-    background-color: #84D8FF;
-    border: 2px solid #84D8FF;
-    color: white;
-}
-
 /* Подписи под кнопками в LearningView */
 QLabel#instruction_label,
 QLabel#review_label {
     font-size: 14px;
     color: #333333;
-    margin-top: 5px;
     text-align: center;
-    padding: 0 20px;
+    min-width: 240px;
+    max-width: 240px;
 }
 
 /* Стиль для распознавателя */
@@ -144,6 +133,7 @@ QLabel#gesture_label {
     font-weight: bold;
     font-size: 16px;
     color: #333333;
+    font-family: "Rubik", Arial, sans-serif;
 }
 
 QLabel#score_label {
@@ -154,4 +144,23 @@ QLabel#score_label {
 QPushButton#continue_button:disabled {
     background-color: #cccccc;
     color: #666666;
+}
+
+/* Карточки жестов */
+QPushButton#gesture_card {
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+QPushButton#gesture_card:hover {
+    background-color: #EAF5FB;
+}
+
+QLabel#mini_card_name {
+    background-color: auto;
+    font-family: "Rubik", Arial, sans-serif;
+    font-weight: bold;
 }

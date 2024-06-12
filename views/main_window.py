@@ -8,7 +8,6 @@ from views.dictionary_view import DictionaryView
 from views.analyzer_view import AnalyzerView
 from views.statistics_view import StatisticsView
 from views.settings_view import SettingsView
-from controllers.learning_controller import LearningController
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -45,18 +44,15 @@ class MainWindow(QMainWindow):
         self.menu_layout.addWidget(self.menu_list)
         self.layout.addLayout(self.menu_layout)
 
-        self.content_area = QWidget()
-        self.content_area.setObjectName("content")
-        self.layout.addWidget(self.content_area)
-
-        self.settings_view = SettingsView()
-        self.statistics_view = StatisticsView()
         self.learning_view = LearningView()
+        self.dictionary_view = DictionaryView()
         self.analyzer_view = AnalyzerView()
+        self.statistics_view = StatisticsView()
+        self.settings_view = SettingsView()
 
         self.modules = {
             "Обучение": self.learning_view,
-            "Словарь": DictionaryView(),
+            "Словарь": self.dictionary_view,
             "Анализатор": self.analyzer_view,
             "Статистика": self.statistics_view,
             "Настройки": self.settings_view
@@ -64,8 +60,8 @@ class MainWindow(QMainWindow):
 
         self.current_module = None
 
-        self.settings_view.controller.learnt_reset.connect(self.statistics_view.update_statistics)
-        self.settings_view.controller.mastered_reset.connect(self.statistics_view.update_statistics)
+        self.settings_view.learnt_reset.connect(self.statistics_view.update_statistics)
+        self.settings_view.mastered_reset.connect(self.statistics_view.update_statistics)
         self.learning_view.gesture_learnt.connect(self.statistics_view.update_statistics)
 
     def add_menu_item(self, name, icon_path=None):
