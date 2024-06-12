@@ -97,7 +97,7 @@ QPushButton:pressed {
     background-color: #004080;
 }
 
-/* Кнопки в LearningView */
+/* Кнопки в Learning */
 QPushButton#learn_gestures_button,
 QPushButton#review_gestures_button {
     background-color: #EAF5FB;
@@ -118,7 +118,7 @@ QPushButton#review_gestures_button:hover {
     border: 2px solid #84D8FF;
 }
 
-/* Подписи под кнопками в LearningView */
+/* Подписи под кнопками в Learning */
 QLabel#instruction_label,
 QLabel#review_label {
     font-size: 14px;

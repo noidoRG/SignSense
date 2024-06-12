@@ -1,19 +1,16 @@
-# views/settings_view.py
+# views/settings.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox
-from controllers.settings_controller import SettingsController
 from PyQt6.QtCore import QObject, pyqtSignal
 import json
 import glob
 
-class SettingsView(QWidget):
+class Settings(QWidget):
     learnt_reset = pyqtSignal()
     mastered_reset = pyqtSignal()
 
     def __init__(self):
         super().__init__()
-
-        self.controller = SettingsController()
 
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)

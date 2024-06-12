@@ -1,14 +1,14 @@
-# views/learning_view.py
+# views/learning.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QMessageBox, QHBoxLayout, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import pyqtSignal, QSize, Qt
-from views.instruction_dialog import InstructionDialog
-from views.recognizer_dialog import RecognizerDialog
+from modules.instruction_dialog import InstructionDialog
+from modules.recognizer_dialog import RecognizerDialog
 import glob
 import json
 
-class LearningView(QWidget):
+class Learning(QWidget):
     gesture_learnt = pyqtSignal()
     gesture_mastered = pyqtSignal()
 

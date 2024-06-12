@@ -1,4 +1,4 @@
-# views/dictionary_view.py
+# views/dictionary.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QScrollArea, QDialog, QDialogButtonBox, QHBoxLayout
 from PyQt6.QtGui import QPixmap, QFont, QIcon
@@ -6,7 +6,7 @@ from PyQt6.QtCore import Qt, pyqtSignal
 import glob
 import json
 
-class DictionaryView(QWidget):
+class Dictionary(QWidget):
 
     def __init__(self):
         super().__init__()

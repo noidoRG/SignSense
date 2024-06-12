@@ -3,11 +3,11 @@
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
-from views.learning_view import LearningView
-from views.dictionary_view import DictionaryView
-from views.analyzer_view import AnalyzerView
-from views.statistics_view import StatisticsView
-from views.settings_view import SettingsView
+from modules.learning import Learning
+from modules.dictionary import Dictionary
+from modules.analyzer import Analyzer
+from modules.statistics import Statistics
+from modules.settings import Settings
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
 
         self.add_menu_item("Обучение", "./resources/icons/Home.svg")
         self.add_menu_item("Словарь", "./resources/icons/Dictionary.svg")
-        self.add_menu_item("Анализатор", "./resources/icons/View.svg")
+        self.add_menu_item("Анализатор", "./resources/icons/Analyzer.svg")
         self.add_menu_item("Статистика", "./resources/icons/Market.svg")
         self.add_menu_item("Настройки", "./resources/icons/Setting.svg")
         self.add_menu_item("Выход", "./resources/icons/Quit.svg")
@@ -44,25 +44,25 @@ class MainWindow(QMainWindow):
         self.menu_layout.addWidget(self.menu_list)
         self.layout.addLayout(self.menu_layout)
 
-        self.learning_view = LearningView()
-        self.dictionary_view = DictionaryView()
-        self.analyzer_view = AnalyzerView()
-        self.statistics_view = StatisticsView()
-        self.settings_view = SettingsView()
+        self.learning = Learning()
+        self.dictionary = Dictionary()
+        self.analyzer = Analyzer()
+        self.statistics = Statistics()
+        self.settings = Settings()
 
         self.modules = {
-            "Обучение": self.learning_view,
-            "Словарь": self.dictionary_view,
-            "Анализатор": self.analyzer_view,
-            "Статистика": self.statistics_view,
-            "Настройки": self.settings_view
+            "Обучение": self.learning,
+            "Словарь": self.dictionary,
+            "Анализатор": self.analyzer,
+            "Статистика": self.statistics,
+            "Настройки": self.settings
         }
 
         self.current_module = None
 
-        self.settings_view.learnt_reset.connect(self.statistics_view.update_statistics)
-        self.settings_view.mastered_reset.connect(self.statistics_view.update_statistics)
-        self.learning_view.gesture_learnt.connect(self.statistics_view.update_statistics)
+        self.settings.learnt_reset.connect(self.statistics.update_statistics)
+        self.settings.mastered_reset.connect(self.statistics.update_statistics)
+        self.learning.gesture_learnt.connect(self.statistics.update_statistics)
 
     def add_menu_item(self, name, icon_path=None):
         item = QListWidgetItem(name)
@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
 
     def display_module(self, current, previous):
         if self.current_module is not None:
-            if isinstance(self.current_module, AnalyzerView):
+            if isinstance(self.current_module, Analyzer):
                 self.current_module.stop_video()
             self.layout.removeWidget(self.current_module)
             self.current_module.hide()
@@ -84,5 +84,5 @@ class MainWindow(QMainWindow):
         self.current_module = self.modules[current.text()]
         self.layout.addWidget(self.current_module)
         self.current_module.show()
-        if isinstance(self.current_module, AnalyzerView):
+        if isinstance(self.current_module, Analyzer):
             self.current_module.start_video()

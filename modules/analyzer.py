@@ -1,4 +1,4 @@
-# views/analyzer_view.py
+# views/analyzer.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt6.QtCore import QTimer, Qt
@@ -9,7 +9,7 @@ import numpy as np
 import json
 import glob
 
-class AnalyzerView(QWidget):
+class Analyzer(QWidget):
     def __init__(self):
         super().__init__()
 

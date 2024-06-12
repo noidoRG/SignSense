@@ -1,10 +1,10 @@
-# views/statistics_view.py
+# views/statistics.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QProgressBar
 import glob
 import json
 
-class StatisticsView(QWidget):
+class Statistics(QWidget):
     def __init__(self):
         super().__init__()
 
