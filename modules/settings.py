@@ -35,14 +35,6 @@ class Settings(QWidget):
         if reply == QMessageBox.StandardButton.Yes:
             self.reset_mastered_gestures()
 
-    # def reset_learnt_gestures(self):
-    #     self.controller.reset_learnt_gestures()
-    #     QMessageBox.information(self, "Сброс данных", "Данные об изученных жестах сброшены.")
-
-    # def reset_mastered_gestures(self):
-    #     self.controller.reset_mastered_gestures()
-    #     QMessageBox.information(self, "Сброс данных", "Данные об освоенных жестах сброшены.")
-
 # Работа с JSON
     def reset_learnt_gestures(self):
         for filename in glob.glob("data/*.json"):
