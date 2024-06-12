@@ -1,6 +1,7 @@
 # modules/statistics.py
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QProgressBar
+from PyQt6.QtWidgets import QWidget, QGridLayout, QLabel, QProgressBar, QSizePolicy
+from PyQt6.QtCore import Qt
 import glob
 import json
 
@@ -8,18 +9,36 @@ class Statistics(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.layout = QVBoxLayout()
-        self.setLayout(self.layout)
+        self.main_layout = QGridLayout()
+        self.main_layout.setSpacing(20)
 
         self.learnt_label = QLabel()
-        self.learnt_progress = QProgressBar()
-        self.mastered_label = QLabel()
-        self.mastered_progress = QProgressBar()
+        self.learnt_label.setObjectName("stat_label")
+        self.learnt_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
-        self.layout.addWidget(self.learnt_label)
-        self.layout.addWidget(self.learnt_progress)
-        self.layout.addWidget(self.mastered_label)
-        self.layout.addWidget(self.mastered_progress)
+        self.learnt_progress = QProgressBar()
+        self.learnt_progress.setObjectName("stat_progress")
+        # self.learnt_progress.setTextVisible(False)
+        self.learnt_progress.setFixedHeight(20)  # Установим фиксированную высоту
+        self.learnt_progress.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        self.mastered_label = QLabel()
+        self.mastered_label.setObjectName("stat_label")
+        self.mastered_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        self.mastered_progress = QProgressBar()
+        self.mastered_progress.setObjectName("stat_progress")
+        # self.mastered_progress.setTextVisible(False)
+        self.mastered_progress.setFixedHeight(20)  # Установим фиксированную высоту
+        self.mastered_progress.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        # Добавляем элементы в сетку
+        self.main_layout.addWidget(self.learnt_label, 0, 0)
+        self.main_layout.addWidget(self.learnt_progress, 0, 1)
+        self.main_layout.addWidget(self.mastered_label, 1, 0)
+        self.main_layout.addWidget(self.mastered_progress, 1, 1)
+
+        self.setLayout(self.main_layout)
 
         self.update_statistics()
 
