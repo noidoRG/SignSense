@@ -64,6 +64,8 @@ class MainWindow(QMainWindow):
         self.settings.mastered_reset.connect(self.statistics.update_statistics)
         self.learning.gesture_learnt.connect(self.statistics.update_statistics)
 
+        self.select_default_item()  # Выбираем элемент списка по умолчанию
+
     def add_menu_item(self, name, icon_path=None):
         item = QListWidgetItem(name)
         if icon_path:
@@ -86,3 +88,8 @@ class MainWindow(QMainWindow):
         self.current_module.show()
         if isinstance(self.current_module, Analyzer):
             self.current_module.start_video()
+
+    def select_default_item(self):
+        self.menu_list.setCurrentRow(0)  # Выбираем первый элемент (Обучение)
+        self.display_module(self.menu_list.currentItem(), None)  # Отображаем модуль обучения
+
