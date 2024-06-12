@@ -172,7 +172,10 @@ class RecognizerDialog(QDialog):
     def stop_video(self):
         self.timer.stop()
         self.cap.release()
-        self.mp_hands.close()
+        # try:
+        #     self.mp_hands.close()
+        # except:
+        #     pass
 
     def closeEvent(self, event):
         self.stop_video()
