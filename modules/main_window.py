@@ -1,8 +1,8 @@
 # modules/main_window.py
 
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
-from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import QSize
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtCore import QSize, Qt
 from modules.learning import Learning
 from modules.dictionary import Dictionary
 from modules.analyzer import Analyzer
@@ -24,8 +24,12 @@ class MainWindow(QMainWindow):
 
         self.menu_layout = QVBoxLayout()
 
-        self.logo_label = QLabel("SignSense")
+        # Изменение для использования изображения логотипа
+        self.logo_label = QLabel()
         self.logo_label.setObjectName("logo_label")
+        pixmap = QPixmap("./resources/icons/full_logo.svg")
+        self.logo_label.setPixmap(pixmap)
+        self.logo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.menu_layout.addWidget(self.logo_label)
 
         self.menu_list = QListWidget()

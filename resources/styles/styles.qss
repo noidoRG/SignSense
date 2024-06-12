@@ -50,13 +50,10 @@ QListWidget#menu_list::item:selected {
 /* Логотип в навигационной панели */
 QLabel#logo_label {
     background-color: #F8F9FA;
-    font-size: 24px;
-    font-weight: bold;
-    color: #007BFF;
     outline: 0;
-    padding: 20px 0px 20px 48px;
-    min-width: 240px;
-    max-width: 240px;
+    padding: 20px 0px;
+    /* min-width: 240px;
+    max-width: 240px; */
 }
 
 /* Тексты и заголовки */
@@ -109,7 +106,7 @@ QPushButton#review_gestures_button {
 QPushButton#learn_gestures_button:hover,
 QPushButton#review_gestures_button:hover {
     background-color: #EAF5FB;
-    border: 2px solid #EAF5FB;
+    border: 2px solid #E5E5E5;
     border-radius: 12px;
 }
 
@@ -154,7 +151,7 @@ QPushButton#continue_button:disabled {
 /* Карточки жестов */
 QPushButton#gesture_card {
     background-color: #F8F9FA;
-    border: 1px solid #E0E0E0;
+    border: 1px solid #E5E5E5;
     border-radius: 10px;
     max-width: 300px;
     padding: 10px;
@@ -163,6 +160,13 @@ QPushButton#gesture_card {
 
 QPushButton#gesture_card:hover {
     background-color: #EAF5FB;
+    border: 1px solid #E5E5E5;
+}
+
+QPushButton#gesture_card:pressed {
+    background-color: #DDF4FF;
+    border: 1px solid #84D8FF;
+
 }
 
 QLabel#mini_card_name {
@@ -185,7 +189,7 @@ QLabel#result_label {
 QLabel#video_label {
     border: 2px solid #E0E0E0;
     border-radius: 10px;
-    padding: 10px;
+    padding: 4px;
 }
 
 

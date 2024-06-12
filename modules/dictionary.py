@@ -38,9 +38,6 @@ class Dictionary(QWidget):
     def create_gesture_card(self, gesture):
         card = QPushButton()
         card.setObjectName("gesture_card")
-        card.setStyleSheet("""
-
-        """)
 
         card_layout = QVBoxLayout(card)
 
