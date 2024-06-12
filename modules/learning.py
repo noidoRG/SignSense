@@ -1,4 +1,4 @@
-# views/learning.py
+# modules/learning.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QMessageBox, QHBoxLayout, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QIcon

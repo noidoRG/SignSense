@@ -1,4 +1,4 @@
-# views/recognizer_dialog.py
+# modules/recognizer_dialog.py
 
 import cv2
 import mediapipe as mp

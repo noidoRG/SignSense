@@ -1,4 +1,4 @@
-# views/statistics.py
+# modules/statistics.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QProgressBar
 import glob

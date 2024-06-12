@@ -1,4 +1,4 @@
-# views/main_window.py
+# modules/main_window.py
 
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QListWidget, QListWidgetItem, QLabel
 from PyQt6.QtGui import QIcon

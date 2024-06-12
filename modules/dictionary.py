@@ -1,4 +1,4 @@
-# views/dictionary.py
+# modules/dictionary.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QScrollArea, QDialog, QDialogButtonBox, QHBoxLayout
 from PyQt6.QtGui import QPixmap, QFont, QIcon

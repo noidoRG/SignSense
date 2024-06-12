@@ -1,4 +1,4 @@
-# views/settings.py
+# modules/settings.py
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox
 from PyQt6.QtCore import QObject, pyqtSignal

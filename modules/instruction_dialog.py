@@ -1,4 +1,4 @@
-# views/instruction_dialog.py
+# modules/instruction_dialog.py
 
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt6.QtCore import Qt
