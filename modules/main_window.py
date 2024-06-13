@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("SignSense")
+        self.setWindowTitle("Жестикуратор")
         self.setWindowIcon(QIcon("./resources/icons/logo.svg"))
         self.setMinimumSize(900, 540)
 
