@@ -3,102 +3,235 @@ QWidget {
     background-color: #F8F9FA;
     font-family: "Montserrat Alternates", Arial, sans-serif;
     outline: 0;
-}
-
-/* Заголовок приложения */
-QMainWindow::title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333333;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 /* Список меню */
-QListWidget#menu_list {
+QListWidget#menu_list#menu_list {
     background-color: #F8F9FA;
     border: 2px solid #F8F9FA;
     padding-left: 26px;
+    border: 2px solid #F8F9FA;
+    padding: 10px 10px 10px 0px;
     font-size: 16px;
     color: #333333;
     outline: 0;
     border-right: 2px solid #E5E5E5;
-    padding-right: 24px;
     min-width: 240px;
     max-width: 240px;
+    font-family: "Rubik", Arial, sans-serif;
+    font-weight: 500;
 }
 
 QListWidget#menu_list::item {
     outline: 0;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    margin-bottom: 8px;
+    padding: 10px 20px;
+    background-color: #F8F9FA;
+    border: 2px solid #F8F9FA;
 }
 
 QListWidget#menu_list::item:hover {
     background-color: #E8F6FC;
     border: 2px solid #84D8FF;
-    border-radius: 12px;
-    padding: 0;
-    margin: 0;
-}
 
-QListWidget#menu_list::item:selected {
-    background-color: #DDF4FF;
-    border: 2px solid #84D8FF;
+    QListWidget#menu_list::item:hover {
+        background-color: #EAF5FB;
+        border: 2px solid #EAF5FB;
+        border-radius: 12px;
+        padding: 10px 20px;
+    }
 
-    border-radius: 12px;
-    color: #333333;
-    outline: 0;
-}
+    QListWidget#menu_list::item:selected {
+        background-color: #DDF4FF;
+        border: 2px solid #84D8FF;
 
-/* Логотип в навигационной панели */
-QLabel#logo_label {
-    background-color: #F8F9FA;
-    /* border-bottom: 1px solid #E0E0E0; */
-    font-size: 24px;
-    font-weight: bold;
-    color: #007BFF;
-    /* text-align: center; */
-    outline: 0;
-    /* border-right: 2px solid #E5E5E5; */
-    /* margin-bottom: 0; */
-    padding: 20px 0px 20px 64px;
-    min-width: 240px;
-    max-width: 240px;
-}
+        border-radius: 12px;
+        color: #333333;
+        outline: 0;
+        padding: 10px 20px;
+    }
 
-/* Панель контента */
-QWidget#content {
-    background-color: #F8F9FA;
-    border-radius: 10px;
-    padding: 20px;
-}
+    /* Логотип в навигационной панели */
+    QLabel#logo_label {
+        background-color: #F8F9FA;
+        outline: 0;
+        padding: 20px 0px;
+        /* min-width: 240px;
+    max-width: 240px; */
+    }
 
-/* Тексты и заголовки */
-QLabel {
-    font-size: 16px;
-    color: #333333;
-}
+    /* Тексты и заголовки */
+    QLabel {
+        font-size: 16px;
+        color: #333333;
+    }
 
-QLabel#title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333333;
-}
+    QLabel#title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333333;
+    }
 
-/* Кнопки */
-QPushButton {
-    background-color: #007BFF;
-    border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    min-width: 100px;
-}
+    /* Кнопки */
+    QPushButton {
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        min-width: 100px;
+        font-family: "Rubik", Arial, sans-serif;
+    }
 
-QPushButton:hover {
-    background-color: #0056b3;
-}
+    QPushButton:hover {
+        background-color: #0056b3;
+    }
 
-QPushButton:pressed {
-    background-color: #004080;
-}
+    QPushButton:pressed {
+        background-color: #004080;
+    }
+
+    /* Кнопки в Learning */
+    QPushButton#learn_gestures_button,
+    QPushButton#review_gestures_button {
+        background-color: #F8F9FA;
+        border: 2px solid #E5E5E5;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 18px;
+        color: #333333;
+        min-width: 220px;
+        max-width: 220px;
+        font-family: "Rubik", Arial, sans-serif;
+        font-weight: 500;
+    }
+
+    QPushButton#learn_gestures_button:hover,
+    QPushButton#review_gestures_button:hover {
+        background-color: #EAF5FB;
+        border: 2px solid #E5E5E5;
+        border-radius: 12px;
+    }
+
+    QPushButton#learn_gestures_button:pressed,
+    QPushButton#review_gestures_button:pressed {
+        background-color: #DDF4FF;
+        border: 2px solid #84D8FF;
+        border-radius: 12px;
+        color: #333333;
+        outline: 0;
+        padding: 10px 20px;
+    }
+
+    /* Подписи под кнопками в Learning */
+    QLabel#instruction_label,
+    QLabel#review_label {
+        font-size: 14px;
+        color: #333333;
+        text-align: center;
+        min-width: 240px;
+        max-width: 240px;
+    }
+
+    /* Стиль для распознавателя */
+    QLabel#gesture_label {
+        font-weight: 500;
+        font-size: 16px;
+        color: #333333;
+        font-family: "Rubik", Arial, sans-serif;
+    }
+
+    QLabel#score_label {
+        font-size: 14px;
+        color: #333333;
+    }
+
+    QPushButton#continue_button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+    }
+
+    /* Карточки жестов */
+    QPushButton#gesture_card {
+        background-color: #F8F9FA;
+        border: 1px solid #E5E5E5;
+        border-radius: 10px;
+        max-width: 300px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    QPushButton#gesture_card:hover {
+        background-color: #EAF5FB;
+        border: 1px solid #E5E5E5;
+    }
+
+    QPushButton#gesture_card:pressed {
+        background-color: #DDF4FF;
+        border: 1px solid #84D8FF;
+
+    }
+
+    QLabel#mini_card_name {
+        background-color: auto;
+        font-family: "Rubik", Arial, sans-serif;
+        font-weight: 500;
+    }
+
+
+    /* Анализатор */
+    QLabel#result_label {
+        font-size: 18px;
+        font-weight: 500;
+        color: #333333;
+        margin-top: 10px;
+        font-family: "Rubik", Arial, sans-serif;
+
+    }
+
+    QLabel#video_label {
+        border: 2px solid #E0E0E0;
+        border-radius: 10px;
+        padding: 4px;
+    }
+
+
+    /* Статистика */
+    QLabel#stat_label {
+        font-size: 20px;
+        font-weight: 500;
+        color: #333333;
+        font-family: "Rubik", Arial, sans-serif;
+        border-radius: 16px;
+
+    }
+
+    QProgressBar#stat_progress {
+        height: 16px;
+        border: 1px solid #E0E0E0;
+        border-radius: 16px;
+        text-align: center;
+    }
+
+    QProgressBar#stat_progress::chunk {
+        background-color: #007BFF;
+    }
+
+
+    /* Настройки */
+    QPushButton#yes_button {
+        background-color: #E0E0E0;
+        color: #333333;
+    }
+
+    QPushButton#yes_button:hover {
+        background-color: #CCCCCC;
+    }
+
+    QPushButton#yes_button:pressed {
+        background-color: #AAAAAA;
+    }
